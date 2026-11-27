@@ -1,0 +1,35 @@
+#include "nacateam/nacateam_crsf_define.h" 
+
+void setup()
+{
+    Serial.begin(115200);
+    Serial.println("Starting CRSF Receiver Test...");
+    Serial2.begin(ORC_BAUDRATE, SERIAL_8N1, ORC_SERIAL_RX_PIN, ORC_SERIAL_TX_PIN);
+    Serial.println("Serial2 initialized for CRSF at 420000 baud.");
+}
+
+void loop()
+{
+    if(Serial2.available() > 0)
+    {
+        size_t bytesToRead = (size_t)min(Serial2.available(), SBUS_BUFFER_SIZE);
+        size_t numBytesRead = Serial2.readBytes(_rcs_buf, bytesToRead);
+        if (numBytesRead > 0 &&
+            crsf_parse(&_rcs_buf[0], numBytesRead, &_raw_rc_values[0], &_raw_rc_count, RC_INPUT_MAX_CHANNELS))
+        {
+            // Print the parsed RC values for debugging
+            Serial.print("Parsed RC Values: ");
+            for (int i = 0; i < _raw_rc_count; ++i)
+            {
+                Serial.print("CH");
+                Serial.print(i + 1); // Channels are typically 1-indexed
+                Serial.print(": ");
+                Serial.print(_raw_rc_values[i]);
+                if (i < _raw_rc_count - 1)
+                    Serial.print(", ");
+            }
+            Serial.println();
+        }
+    }
+    // TODO: Implement test logic
+}
