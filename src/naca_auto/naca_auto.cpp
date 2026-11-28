@@ -261,7 +261,7 @@ static bool auto_green()
     if (!auto_wait(200))
         return false;
 
-    if (!naca_auto_move(0, -AUTO_GREEN_BACK_SPEED, 40, 10, 30))
+    if (!naca_auto_move(0, -AUTO_GREEN_BACK_SPEED, 40, 10, 50))
         return false;
     brake_omni();
     // step 2: bật cuốn bóng
@@ -335,7 +335,7 @@ static bool auto_red()
     if (!auto_wait(200))
         return false;
 
-    if (!naca_auto_move(0, -AUTO_GREEN_BACK_SPEED, 40, 10, 30))
+    if (!naca_auto_move(0, -AUTO_GREEN_BACK_SPEED, 40, 10, 50))
         return false;
     brake_omni();
     // step 2: bật cuốn bóng

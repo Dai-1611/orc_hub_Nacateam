@@ -17,7 +17,7 @@
 #define right_servo_open_ms -100
 #define right_servo_close_ms -5 //Kẹp servo phải, càng lớn kẹp càng chặt
 #define right_servo_middle_close_ms -18 //Kẹp servo phải khi servo giữa ở vị trí mở, càng lớn kẹp càng chặt 
-#define right_servo_dual_pickup_ball_close_ms 50 //kẹp 1 lần 2 banh
+#define right_servo_dual_pickup_ball_close_ms 60 //kẹp 1 lần 2 banh
 
 #define mid_servo_initial_ms -90
 #define mid_servo_close_ms -90
