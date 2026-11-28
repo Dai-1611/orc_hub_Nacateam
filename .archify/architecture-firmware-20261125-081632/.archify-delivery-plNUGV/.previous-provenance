@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "cf2c4b1c-b520-4071-8200-2960087d0f47",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+  "output": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html",
+  "specification": {
+    "sha256": "a85aef58d0fe95fea18983c57687a37eac3b63468b76ca88098e852a3d0e97c1",
+    "bytes": 6786
+  },
+  "artifact": {
+    "sha256": "04f4739cc27fff977a463484da5afee74f9dfc84d130ce9aab62aa038016314d",
+    "bytes": 961076
+  }
+}

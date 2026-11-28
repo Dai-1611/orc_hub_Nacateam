@@ -8,14 +8,14 @@
 
 #define left_servo_initial_ms -80
 #define left_servo_open_ms 100
-#define left_servo_close_ms 6 //Kẹp servo trái, càng nhỏ kẹp càng chặt 
+#define left_servo_close_ms 2 //Kẹp servo trái, càng nhỏ kẹp càng chặt 
 #define left_servo_middle_close_ms 8 //Kẹp servo trái khi servo giữa ở vị trí mở, càng nhỏ kẹp càng chặt 
 #define left_servo_dual_pickup_ball_close_ms -40
 
 
 #define right_servo_initial_ms 80
 #define right_servo_open_ms -100
-#define right_servo_close_ms -16 //Kẹp servo phải, càng lớn kẹp càng chặt
+#define right_servo_close_ms -5 //Kẹp servo phải, càng lớn kẹp càng chặt
 #define right_servo_middle_close_ms -18 //Kẹp servo phải khi servo giữa ở vị trí mở, càng lớn kẹp càng chặt 
 #define right_servo_dual_pickup_ball_close_ms 50 //kẹp 1 lần 2 banh
 

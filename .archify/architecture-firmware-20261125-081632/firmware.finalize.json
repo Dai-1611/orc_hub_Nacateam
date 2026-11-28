@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "running",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-11-25T01:17:34.660Z",
+  "specification": {
+    "path": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+    "sha256": "a85aef58d0fe95fea18983c57687a37eac3b63468b76ca88098e852a3d0e97c1",
+    "bytes": 6786
+  },
+  "artifact": {
+    "path": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html",
+    "sha256": "04f4739cc27fff977a463484da5afee74f9dfc84d130ce9aab62aa038016314d",
+    "bytes": 961076
+  },
+  "stages": {
+    "validate": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": null,
+      "execution": "embedded-in-deliver",
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Nguye\\.claude\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "architecture",
+        "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+        "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": true,
+        "command": "validate",
+        "specification": {
+          "sha256": "a85aef58d0fe95fea18983c57687a37eac3b63468b76ca88098e852a3d0e97c1",
+          "bytes": 6786
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        }
+      }
+    },
+    "deliver": {
+      "status": "pass",
+      "exitCode": 0,
+      "durationMs": 56374,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\Nguye\\.claude\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "architecture",
+        "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+        "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html",
+        "--quality",
+        "showcase",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "receiptId": "cf2c4b1c-b520-4071-8200-2960087d0f47",
+        "ok": true,
+        "command": "deliver",
+        "type": "architecture",
+        "input": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+        "output": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html",
+        "specification": {
+          "sha256": "a85aef58d0fe95fea18983c57687a37eac3b63468b76ca88098e852a3d0e97c1",
+          "bytes": 6786
+        },
+        "artifact": {
+          "sha256": "04f4739cc27fff977a463484da5afee74f9dfc84d130ce9aab62aa038016314d",
+          "bytes": 961076
+        },
+        "validation": {
+          "checksPassed": 9,
+          "checkCount": 9,
+          "compositionProfile": "showcase",
+          "compositionStatus": "pass",
+          "errors": 0,
+          "warnings": 0
+        },
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      }
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.finalize.json",
+    "summaryReceipt": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.finalize-summary.json"
+  },
+  "visualReview": "not-requested"
+}

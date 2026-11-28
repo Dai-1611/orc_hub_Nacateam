@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "445102a7-41a9-471c-996d-45a4fed61145",
+  "input": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+  "output": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html"
+}

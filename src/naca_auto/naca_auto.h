@@ -10,7 +10,7 @@
 // #define AUTO_BTN_GREEN_PIN 10 // D7
 // #define AUTO_BTN_RED_PIN 17   // D8
 
-#define AUTO_BTN_GREEN_PIN 0 // D7 // thử
+#define AUTO_BTN_GREEN_PIN 10 // D7 // thử
 #define AUTO_BTN_RED_PIN 17  // D8
 #define AUTO_BTN_DEBOUNCE_MS 30
 
@@ -40,7 +40,8 @@
 #define AUTO_GREEN_STEP_COUNT 9
 #define AUTO_GREEN_SCROLL_SPEED 100 // tốc độ cuốn bóng
 // STEP3
-#define AUTO_GREEN_FORWARD_MM 60.0f // đi tiến đến nơi bắn bóng
+//#define AUTO_GREEN_FORWARD_MM 60.0f // đi tiến đến nơi bắn bóng
+#define AUTO_GREEN_FORWARD_MM 40.0f // đi tiến đến nơi bắn bóng
 #define AUTO_GREEN_FORWARD_SPEED 60  // tốc độ tiến
 // STEP4
 #define AUTO_GREEN_LEFT_MM 200.0f // đi ngang sang trái để bắn bóng

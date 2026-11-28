@@ -1,0 +1,273 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Nacateam robot firmware architecture",
+    "output": ".archify/architecture-firmware-20261125-081632/firmware.html",
+    "locale": "en",
+    "quality_profile": "showcase"
+  },
+  "layout": {
+    "mode": "auto"
+  },
+  "components": [
+    {
+      "id": "rc",
+      "type": "external",
+      "label": "CRSF receiver",
+      "sublabel": "Serial2 420000 baud, RX 8 / TX 9"
+    },
+    {
+      "id": "buttons",
+      "type": "external",
+      "label": "Auto buttons D7 / D8",
+      "sublabel": "GPIO 0 (test) / 17, pull-up"
+    },
+    {
+      "id": "main",
+      "type": "frontend",
+      "label": "main.cpp loop()",
+      "sublabel": "auto first, else manual",
+      "explanation": "setup() only calls naca_control_init(). loop() calls naca_auto_handle_loop(); when it returns false (no button edge, armed, or no IMU), it calls naca_manual_handle_loop()."
+    },
+    {
+      "id": "auto",
+      "type": "backend",
+      "label": "naca_auto",
+      "sublabel": "D7 shoot / D8 pick, blocking",
+      "explanation": "D7 runs on press (ball shooting), D8 on release (block picking). Skipped when CH5 is armed (>1400) or the IMU is missing. While running, auto_service() aborts on arming, on another button press, or on a step timeout. After a successful green run it calls naca_control_keep_shooting()."
+    },
+    {
+      "id": "control",
+      "type": "backend",
+      "label": "naca_control",
+      "sublabel": "teleop, 300 ms link timeout",
+      "explanation": "naca_manual_handle_loop() reads Serial2 through naca_control_read_rc(). Motor commands are only sent when a full CRSF frame was decoded. After RC_TIMEOUT_MS without a frame it calls naca_control_stop_all() once."
+    },
+    {
+      "id": "crsf",
+      "type": "backend",
+      "label": "lib/crsf",
+      "sublabel": "crsf_parse(), PX4 port"
+    },
+    {
+      "id": "motor",
+      "type": "backend",
+      "label": "naca_motor",
+      "sublabel": "mapRC, mecanum mix, cached cmds",
+      "explanation": "drive_omni() runs omni_kinematics() and scales all four wheels to ±100. CachedDCMotor / CachedServo only send a command when the value changed. Shooter and blower are local LEDC PWM, not the driver board."
+    },
+    {
+      "id": "imu",
+      "type": "backend",
+      "label": "naca_imu",
+      "sublabel": "yaw + heading PID, timer 1"
+    },
+    {
+      "id": "odom",
+      "type": "backend",
+      "label": "naca_odom",
+      "sublabel": "x, y mm from E1/E2 + yaw"
+    },
+    {
+      "id": "led",
+      "type": "backend",
+      "label": "naca_led",
+      "sublabel": "WS2812B GPIO 45, D13 GPIO 48"
+    },
+    {
+      "id": "timer",
+      "type": "backend",
+      "label": "naca_timer",
+      "sublabel": "timer 0 ISR, 1 ms tick"
+    },
+    {
+      "id": "ohstem",
+      "type": "backend",
+      "label": "OhStemRobotics",
+      "sublabel": "MotorDriverV2, DCMotor, Servo"
+    },
+    {
+      "id": "driver",
+      "type": "external",
+      "label": "Motor driver board",
+      "sublabel": "wheels M1 M4 E1 E2, lift M2, roller M3, S1–S4"
+    },
+    {
+      "id": "pwm",
+      "type": "external",
+      "label": "Shooter / blower",
+      "sublabel": "GPIO 6 / 7, LEDC 1 kHz"
+    },
+    {
+      "id": "lsm",
+      "type": "external",
+      "label": "LSM6DSR IMU",
+      "sublabel": "3-wire SPI, CS 1 / SDA 3 / SCLK 2"
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Yolo Uno firmware (ESP32-S3)",
+      "wraps": [
+        "main",
+        "auto",
+        "control",
+        "crsf",
+        "motor",
+        "imu",
+        "odom",
+        "led",
+        "timer",
+        "ohstem"
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "rc-bytes",
+      "from": "rc",
+      "to": "control",
+      "label": "CRSF bytes",
+      "variant": "emphasis"
+    },
+    {
+      "id": "parse",
+      "from": "control",
+      "to": "crsf",
+      "label": "crsf_parse()"
+    },
+    {
+      "id": "btn-edges",
+      "from": "buttons",
+      "to": "auto",
+      "label": "button edges"
+    },
+    {
+      "id": "loop-auto",
+      "from": "main",
+      "to": "auto",
+      "label": "run auto"
+    },
+    {
+      "id": "loop-manual",
+      "from": "main",
+      "to": "control",
+      "label": "else manual",
+      "variant": "emphasis"
+    },
+    {
+      "id": "auto-control",
+      "from": "auto",
+      "to": "control",
+      "label": "stop_all, keep_shooting"
+    },
+    {
+      "id": "control-motor",
+      "from": "control",
+      "to": "motor",
+      "label": "drive, lift, roller, servos",
+      "variant": "emphasis"
+    },
+    {
+      "id": "auto-motor",
+      "from": "auto",
+      "to": "motor",
+      "label": "drive + encoders"
+    },
+    {
+      "id": "control-imu",
+      "from": "control",
+      "to": "imu",
+      "label": "yaw for headless"
+    },
+    {
+      "id": "auto-imu",
+      "from": "auto",
+      "to": "imu",
+      "label": "heading hold"
+    },
+    {
+      "id": "odom-motor",
+      "from": "odom",
+      "to": "motor",
+      "label": "encoder ticks"
+    },
+    {
+      "id": "odom-imu",
+      "from": "odom",
+      "to": "imu",
+      "label": "yaw"
+    },
+    {
+      "id": "control-odom",
+      "from": "control",
+      "to": "odom",
+      "label": "update"
+    },
+    {
+      "id": "control-led",
+      "from": "control",
+      "to": "led",
+      "label": "state"
+    },
+    {
+      "id": "timer-control",
+      "from": "timer",
+      "to": "control",
+      "label": "1 s log tick"
+    },
+    {
+      "id": "motor-ohstem",
+      "from": "motor",
+      "to": "ohstem",
+      "label": "run / setAngle"
+    },
+    {
+      "id": "ohstem-driver",
+      "from": "ohstem",
+      "to": "driver",
+      "label": "I2C 0x54, 400 kHz",
+      "variant": "emphasis"
+    },
+    {
+      "id": "motor-pwm",
+      "from": "motor",
+      "to": "pwm",
+      "label": "ledcWrite PWM"
+    },
+    {
+      "id": "imu-lsm",
+      "from": "imu",
+      "to": "lsm",
+      "label": "SPI reads"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Control path",
+      "items": [
+        "Motor commands go out only when a full CRSF frame is decoded, so I2C traffic follows the RC frame rate",
+        "300 ms without a frame → stop_all() once, LED blue"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Startup",
+      "items": [
+        "naca_motor_init() loops forever if the driver board fails WHO_AM_I",
+        "IMU gyro calibration takes about 7 s; without the IMU, headless and auto are disabled"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Worth checking",
+      "items": [
+        "D7 is on GPIO 0, marked as a test; the commented original is GPIO 10",
+        "In SAFETY_MODE the lift gets 0 (or -100 while lowering), not LIFT_HOLD_SPEED as CLAUDE.md says"
+      ]
+    }
+  ]
+}

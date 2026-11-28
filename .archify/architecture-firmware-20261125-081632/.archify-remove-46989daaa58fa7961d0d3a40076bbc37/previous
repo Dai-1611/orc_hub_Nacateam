@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "running",
+  "type": "architecture",
+  "quality": "showcase",
+  "startedAt": "2026-11-25T01:17:34.660Z",
+  "specification": {
+    "path": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\candidate.json",
+    "sha256": "a85aef58d0fe95fea18983c57687a37eac3b63468b76ca88098e852a3d0e97c1",
+    "bytes": 6786
+  },
+  "artifact": {
+    "path": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.html"
+  },
+  "stages": {},
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.finalize.json",
+    "summaryReceipt": "C:\\Users\\Nguye\\OneDrive\\Documents\\_PERSONAL_PROJECTS\\ORC\\orc_hub_Nacateam\\.archify\\architecture-firmware-20261125-081632\\firmware.finalize-summary.json"
+  },
+  "visualReview": "not-requested"
+}

@@ -286,11 +286,11 @@ static bool auto_green()
     if (!auto_wait(500))
         return false;
 
-    if (!naca_auto_move(-AUTO_GREEN_STEP_SPEED, 0, 40, 10, 40))
-        return false;
-        // drive_omni(0, 0, 0);
-    brake_omni();
-
+    // if (!naca_auto_move(-AUTO_GREEN_STEP_SPEED, 0, 40, 10, 40))
+    //     return false;
+    //     // drive_omni(0, 0, 0);
+    // brake_omni();
+ 
 
     if (!auto_wait(500))
         return false;
@@ -318,20 +318,81 @@ static bool auto_green()
     return true;
 }
 
+
+
 // Nút đỏ: đi ngang sang trái 74 cm, tiến 25 cm, hạ tay gắp
 static bool auto_red()
 {
+     // step 0: đợi 500ms
     if (!auto_wait(500))
         return false;
-    if (!auto_move(0, -AUTO_RED_LEFT_SPEED, AUTO_RED_LEFT_MM))
+
+    // step 1: đi lùi {AUTO_GREEN_BACK_MM} tới nơi lấy bóng với tốc độ {AUTO_GREEN_BACK_SPEED}
+    if (!naca_auto_move(-AUTO_GREEN_BACK_SPEED, 0, AUTO_GREEN_BACK_MM, 400, 25))
         return false;
     brake_omni();
+
+    if (!auto_wait(200))
+        return false;
+
+    if (!naca_auto_move(0, -AUTO_GREEN_BACK_SPEED, 40, 10, 30))
+        return false;
+    brake_omni();
+    // step 2: bật cuốn bóng
     if (!auto_wait(500))
         return false;
-    if (!auto_move(AUTO_RED_FORWARD_SPEED, 0, AUTO_RED_FORWARD_MM))
+    scroll_motor(AUTO_GREEN_SCROLL_SPEED);
+
+    // step 3: đi lùi 9 bước, mỗi bước {AUTO_GREEN_STEP_MM} với tốc độ {AUTO_GREEN_STEP_SPEED}
+    for (int i = 0; i < AUTO_GREEN_STEP_COUNT; i++)
+    {
+        if (!naca_auto_move(-AUTO_GREEN_STEP_SPEED, 0, AUTO_GREEN_STEP_MM, 50, 40))
+            return false;
+        // drive_omni(0, 0, 0);
+        brake_omni();
+        if (!auto_wait(500))
+            return false;
+        // if (i == 2 && !auto_hold_heading())
+        //     return false;
+    }
+    drive_omni(0, 0, 0);
+    
+    if (!auto_wait(500))
+        return false;
+
+    // if (!naca_auto_move(-AUTO_GREEN_STEP_SPEED, 0, 40, 10, 40))
+    //     return false;
+    //     // drive_omni(0, 0, 0);
+    // brake_omni();
+
+
+    if (!auto_wait(500))
+        return false;
+
+    // step 4: đi tiến {AUTO_GREEN_FORWARD_MM} với tốc độ {AUTO_GREEN_FORWARD_SPEED}
+    if (!naca_auto_move(AUTO_GREEN_FORWARD_SPEED, 0, AUTO_GREEN_FORWARD_MM+100, 150, AUTO_GREEN_FORWARD_SPEED - 10))
         return false;
     brake_omni();
-    return auto_lower_gripper();
+    /*
+    // step 5: đi sang trái {AUTO_GREEN_LEFT_MM} với tốc độ {AUTO_GREEN_STEP_SPEED}
+    if (!naca_auto_move(0, -AUTO_GREEN_LEFT_SPEED, AUTO_GREEN_LEFT_MM))
+        return false;
+    brake_omni();
+    // step 6 đợi 600ms, phanh omni
+    if (!auto_wait(600))
+        return false;
+    brake_omni();
+    */
+    // step 7: đợi 100ms
+    if (!auto_wait(100))
+        return false;
+
+    if (!naca_auto_move(0, -90, 400, 150, 70))
+        return false;
+
+    // step 8, 9: bắn bóng và hạ tay gắp do điều khiển tay xử lý sau khi bài tự động kết thúc
+    // (chương trình gốc gán auto = 0 trước 2 bước này), xem naca_auto_handle_loop
+    return true;
 }
 
 bool naca_auto_handle_loop()
@@ -339,7 +400,7 @@ bool naca_auto_handle_loop()
     int green_edge = button_edge(btn_green);
     int red_edge = button_edge(btn_red);
     bool run_green = green_edge == 1;
-    bool run_red = red_edge == -1;
+    bool run_red = red_edge == 1;
     if (!run_green && !run_red)
     {
         return false;
@@ -367,7 +428,7 @@ bool naca_auto_handle_loop()
     {
         // Sau khi hạ tay gắp: kẹp trái/phải mở, kẹp giữa đóng (như chương trình gốc)
         // naca_control_set_gripper_state(1, 1, 0);
-        if (run_green)
+        if (run_green || run_red)
         {
             // Như chương trình gốc: gán biến rồi để điều khiển tay bắn bóng và hạ tay gắp
             naca_control_keep_shooting();
